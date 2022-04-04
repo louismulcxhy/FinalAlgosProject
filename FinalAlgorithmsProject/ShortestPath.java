@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 
 
+
 public class ShortestPath{
 	int numberOfEdges = 0;
     ArrayList<Stop> stopList;
@@ -102,4 +103,41 @@ public class ShortestPath{
         stopsScanner.close();
         transferScanner.close();
     }
+	public Edge[] runDijkstra(int start) {
+        double[] distTo = new double[numberOfEdges];
+        boolean[] relaxed = new boolean[numberOfEdges];
+        Edge[] edgeTo = new Edge[numberOfEdges];
+
+        for (Stop stop : stopList) {
+            distTo[stop.getId()] = Double.POSITIVE_INFINITY;
+            relaxed[stop.getId()] = false;
+            edgeTo[stop.getId()] = null;
+        }
+        distTo[start] = 0;
+
+        int current = start;
+
+        for (int i = 0; i < stopList.size(); i++) {
+            relax(distTo, edgeTo, current);
+            relaxed[current] = true;
+            double min = Double.POSITIVE_INFINITY;
+            for (Stop stop : stopList) {
+                if (distTo[stop.getId()] < min && !relaxed[stop.getId()]) {
+                    min = distTo[stop.getId()];
+                    current = stop.getId();
+                }
+            }
+        }
+        dists = distTo;
+        return edgeTo;
+    }
+	  public void relax(double[] distTo, Edge[] edgeTo, int v) {
+	        for (Edge e : systemGraph.getNode(v)) {
+	            int w = e.to;
+	            if (distTo[w] > distTo[v] + e.weight) {
+	                distTo[w] = distTo[v] + e.weight;
+	                edgeTo[w] = e;
+	            }
+	        }
+	    }
 }
