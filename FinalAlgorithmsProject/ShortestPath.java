@@ -11,10 +11,13 @@ public class ShortestPath{
     Graph systemGraph;
     
     double[] dists;
+    File transfersFile, stopTimesFile;
 
 	public ShortestPath(File transfersFile, File stopTimesFile, File stopsFile) throws FileNotFoundException {
         
         stopList = new ArrayList<Stop>();
+        this.transfersFile = transfersFile;
+       this.stopTimesFile = stopTimesFile;
         
         
         Scanner stopsScanner = new Scanner(stopsFile);
@@ -33,11 +36,15 @@ public class ShortestPath{
             numberOfEdges = Math.max(stopId, numberOfEdges);
         }
         numberOfEdges++;
-        
+        stopsScanner.close();
+        setupEdges();
         
         
 
-        Scanner transferScanner = new Scanner(transfersFile);
+        
+    }
+	public void setupEdges() throws FileNotFoundException {
+		Scanner transferScanner = new Scanner(transfersFile);
         transferScanner.nextLine();
 
         systemGraph = new Graph(numberOfEdges);
@@ -97,9 +104,9 @@ public class ShortestPath{
             from = Integer.parseInt(tripValues[3]);
         }
         stopTimeScanner.close();
-        stopsScanner.close();
+        
         transferScanner.close();
-    }
+	}
 	public Edge[] runDijkstra(int startNode) {
         double[] distTo = new double[numberOfEdges];
         boolean[] relaxed = new boolean[numberOfEdges];
