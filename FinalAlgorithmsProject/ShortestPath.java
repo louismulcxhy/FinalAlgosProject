@@ -103,7 +103,7 @@ public class ShortestPath{
         stopsScanner.close();
         transferScanner.close();
     }
-	public Edge[] runDijkstra(int start) {
+	public Edge[] runDijkstra(int startNode) {
         double[] distTo = new double[numberOfEdges];
         boolean[] relaxed = new boolean[numberOfEdges];
         Edge[] edgeTo = new Edge[numberOfEdges];
@@ -113,18 +113,18 @@ public class ShortestPath{
             relaxed[stop.getId()] = false;
             edgeTo[stop.getId()] = null;
         }
-        distTo[start] = 0;
+        distTo[startNode] = 0;
 
-        int current = start;
+        int currentNode = startNode;
 
         for (int i = 0; i < stopList.size(); i++) {
-            relax(distTo, edgeTo, current);
-            relaxed[current] = true;
+            relax(distTo, edgeTo, currentNode);
+            relaxed[currentNode] = true;
             double min = Double.POSITIVE_INFINITY;
             for (Stop stop : stopList) {
                 if (distTo[stop.getId()] < min && !relaxed[stop.getId()]) {
                     min = distTo[stop.getId()];
-                    current = stop.getId();
+                    currentNode = stop.getId();
                 }
             }
         }
