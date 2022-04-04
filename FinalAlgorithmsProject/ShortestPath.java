@@ -1,11 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
-
-
-
-
 
 
 public class ShortestPath{
@@ -74,17 +71,17 @@ public class ShortestPath{
         String[] tripValues;
         int from = 1;
         int to = 0;
-        int sequenceValue = 0;
+        int stopSequenceValue = 0;
         boolean skip = false;
 
         while (stopTimeScanner.hasNextLine()) {
             trip = stopTimeScanner.nextLine();
             tripValues = trip.split(",");
-            sequenceValue = Integer.parseInt(tripValues[4]);
+            stopSequenceValue = Integer.parseInt(tripValues[4]);
 
             skip = false;
 
-            if (sequenceValue != 1) {
+            if (stopSequenceValue != 1) {
                 to = Integer.parseInt(tripValues[3]);
                 for (Edge thisEdge : systemGraph.getNode(from)) {
                     if (thisEdge.to == to) {
@@ -139,5 +136,49 @@ public class ShortestPath{
 	                edgeTo[w] = e;
 	            }
 	        }
+	    }
+	  public String getStopSequence(int start, int end) throws FileNotFoundException {
+	        
+
+	        if (getStopById(start) == null) {
+	            return "Departure stop doen't exist";
+	        }
+	        if (getStopById(end) == null) {
+	            return "Destination stop doesn't exist";
+	        }
+
+	        Edge[] edgeTo = runDijkstra(start);
+
+	        ArrayList<String> stopSequence = new ArrayList<String>();
+
+	        int currentStop = end;
+
+	        stopSequence.add(getStopById(end));
+	        while (currentStop != start){
+	            try {
+	                currentStop = edgeTo[currentStop].from;
+	            } catch (NullPointerException e) {
+	                return "Path does not exist!";
+	            }
+	            stopSequence.add(getStopById(currentStop));
+	        } 
+	        Collections.reverse(stopSequence);
+
+	        stopSequence.add(0, dists[end] + "");
+
+	        String returnString = "";
+	        for (String string : stopSequence) {
+	            returnString += string + "\n";
+	        }
+	        return returnString;
+	    }
+
+	    public String getStopById(int id) {
+	        for (Stop s : stopList) {
+	            if (s.getId() == id) {
+	                return s.getName();
+	            }
+	        }
+	        return "Specified stop doesn't exist!";
 	    }
 }
