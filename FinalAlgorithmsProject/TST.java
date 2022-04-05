@@ -196,16 +196,16 @@ public class TST<Value> {
 
             while(input.hasNextLine())
             {
-                String [] lineData = input.nextLine().trim().split(",");
+                String [] data = input.nextLine().trim().split(",");
 
-                String stopName = lineData[2];
-                stopName = MoveKeyword(stopName);
+                String stopName = data[2];
+                stopName = formatStopName(stopName);
 
-                String stopInformation = "// Stop id: " + lineData[0] + "// Stop Code: " + lineData[1] +
-                        "// Stop Desc : " + lineData[3] + "// Stop Lat: " + lineData[4] +"// Stop Lon: " +
-                        lineData[5] + "// Zone Id: " + lineData[6];
+                String stopInfo = "// Stop id: " + data[0] + "// Stop Code: " + data[1] +
+                        "// Stop Desc : " + data[3] + "// Stop Lat: " + data[4] +"// Stop Lon: " +
+                        data[5] + "// Zone Id: " + data[6];
 
-                st.put(stopName, stopInformation);
+                st.put(stopName, stopInfo);
             }
 
             input.close();
@@ -223,7 +223,7 @@ public class TST<Value> {
      * @param stop
      * @return an String representation of the stop with they words moved appropriately
      */
-    public static String MoveKeyword(String stop)
+    public static String formatStopName(String stop)
     {
 
         // Checking if the stop name contains keyword flagstops that need to be moved
@@ -265,53 +265,8 @@ public class TST<Value> {
             return stop;
         }
 
+    
     }
-
-    /**
-     * This method manages the users requests providing them with the bus stop names in the appropriate
-     * manner as requested
-     *
-     * @param option
-     * @param key
-     */
-    public static void manageRequest(int option, String key)
-    {
-        TST<String> st = new TST<String>();
-
-        CreateTST("stops.txt", st);
-
-        //User requested to search by bus stops full name
-        if(option==0)
-        {
-            if(st.get(key) == null)
-            {
-                System.out.println("The bus stop you have entered does no exist! Try again");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, key + st.get(key));
-            }
-
-        }
-
-        //User requested to search by first few characters
-        else if(option==1)
-        {
-            String results = "";
-            for(String s : st.keysWithPrefix(key)){
-                results += s+st.get(s) + "\n";
-            }
-            if(results =="")
-            {
-                JOptionPane.showMessageDialog(null, "No bus stops matching them first " +
-                        "few characters were found. \n                              Please try again");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, results);
-            }
-
-        }
-    }
-
 }
+
+

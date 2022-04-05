@@ -10,12 +10,13 @@ public class BusStopSearch {
 	// opens dialog asking which option, manages request, handles file
 	// then finally calls TST to search
 	File stopsFile;
-	BusStopSearch(File stopsFile) throws FileNotFoundException{
-		this.stopsFile = stopsFile;
-		takeInput();
+	BusStopSearch(File stopsFile) {
+		
+			this.stopsFile = stopsFile;
+			takeInput();
 		
 	}
-	public void takeInput() throws FileNotFoundException {
+	public void takeInput()  {
 		boolean quit = true;
 		Scanner input = new Scanner(System.in);
 		do {
@@ -31,8 +32,9 @@ public class BusStopSearch {
 		} while(!quit);
 	
 	}
-	public void handleRequest(int option) throws FileNotFoundException {
-		  TST<String> st = new TST<String>();
+	public void handleRequest(int option)  {
+		
+			TST<String> st = new TST<String>();
 		  	Scanner input = new Scanner(System.in);
 		  	String key;
 	        CreateTST(stopsFile, st);
@@ -43,14 +45,15 @@ public class BusStopSearch {
 	        	quit = true;
 		        if(option==1)
 		        {
-		        	System.out.println("Enter full bus stop name: \n");
-		        	key = input.next();
+		        	System.out.println("Enter full bus stop name: ");
+		        	key = input.nextLine();
 		        	
 		            if(st.get(key) == null)
 		            {
 		                System.out.println("That Bus Stop Does Not Exist \n" +
 		                        "Please Enter a Valid Bus Stop");
 		                quit = false;
+		                input.next();
 		            }
 		            else
 		            {
@@ -70,7 +73,7 @@ public class BusStopSearch {
 		            }
 		            if(results =="")
 		            {
-		            	System.out.println("No bus stops matching them first " +
+		            	System.out.println("No bus stops matching those first " +
 		                        "few characters were found. \n                              Please try again");
 		            	quit = false;
 		            }
@@ -81,10 +84,44 @@ public class BusStopSearch {
 	
 		        }
 	        } while(!quit);
-	       
+		
 	
 	}
-	  public static String MoveKeyword(String stop)
+	  public static void CreateTST(File fileToRead, TST<String> st )
+	    {
+	        try{
+	            Scanner input = new Scanner(new FileInputStream(fileToRead));
+
+	            while(input.hasNextLine())
+	            {
+	                String [] data = input.nextLine().trim().split(",");
+
+	                String stopName = data[2];
+	                stopName = formatStopName(stopName);
+
+	                String stopInfo = "// Stop id: " + data[0] + "// Stop Code: " + data[1] +
+	                        "// Stop Desc : " + data[3] + "// Stop Lat: " + data[4] +"// Stop Lon: " +
+	                        data[5] + "// Zone Id: " + data[6];
+
+	                st.put(stopName, stopInfo);
+	            }
+
+	            input.close();
+	        }catch(IOException e)
+	        {
+	            System.out.println("File not found");
+	        }
+	    }
+
+	    /**
+	     * This method takes a string representation of the stop, and then returns the stop name
+	     * with the keyword flagstops moved to the end of the stop
+	     *
+	     *
+	     * @param stop
+	     * @return an String representation of the stop with they words moved appropriately
+	     */
+	    public static String formatStopName(String stop)
 	    {
 
 	        // Checking if the stop name contains keyword flagstops that need to be moved
@@ -126,25 +163,8 @@ public class BusStopSearch {
 	            return stop;
 	        }
 
+	    
 	    }
-	  public static void CreateTST(File fileToRead, TST<String> st ) throws FileNotFoundException
-	    {
-	        Scanner input = new Scanner(fileToRead);
+	}
 
-			while(input.hasNextLine())
-			{
-			    String [] lineData = input.nextLine().trim().split(",");
 
-			    String stopName = lineData[2];
-			    stopName = MoveKeyword(stopName);
-
-			    String stopInformation = "// Stop id: " + lineData[0] + "// Stop Code: " + lineData[1] +
-			            "// Stop Desc : " + lineData[3] + "// Stop Lat: " + lineData[4] +"// Stop Lon: " +
-			            lineData[5] + "// Zone Id: " + lineData[6];
-
-			    st.put(stopName, stopInformation);
-			}
-
-			input.close();
-	    }
-}
