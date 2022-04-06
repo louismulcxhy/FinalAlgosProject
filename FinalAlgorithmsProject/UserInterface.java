@@ -24,11 +24,11 @@ public class UserInterface {
 						+ "1. Find the shortest path between two stops\n"
 						+ "2. Search for a bus stop\n" 
 						+ "3. Search for all trips within a given arrival time\n"
-						+"4. quit\n"
+						+"4. Quit\n"
 						+ "To select option 1,2,3, or 4 type the number and hit enter");
 				
 				if (!input.hasNextInt()) {
-					System.out.println("Error invalid input,please check each stop number is valid\n");
+					System.out.println("Error invalid input.");
 					input.next();
 				}
 				else {

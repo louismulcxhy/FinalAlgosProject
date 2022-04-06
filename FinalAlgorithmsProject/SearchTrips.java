@@ -51,7 +51,7 @@ public class SearchTrips <Key extends Comparable <Key>,Value>  {
             }
         }
         catch(Exception e){
-        	System.out.println("Error: Invalid fileReader format , Please use the format HH:MM:SS, thank you");
+        	System.out.println("No trips were found that match this criteria.");
         return ;
 
         }
