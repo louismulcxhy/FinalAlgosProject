@@ -9,12 +9,8 @@ import javax.swing.JOptionPane;
 public class BusStopSearch {
 
 	File stopsFile;
-	BusStopSearch(File stopsFile) {
-		
-			this.stopsFile = stopsFile;
-		
-	}
-	public void takeInput()  {
+	
+	public static void takeInput(File stopsFile)  {
 		boolean quit = true;
 		Scanner input = new Scanner(System.in);
 		do {
@@ -27,11 +23,11 @@ public class BusStopSearch {
 			input.next();
 		}
 		int choice = input.nextInt();
-		handleRequest(choice);
+		handleRequest(choice, stopsFile);
 		} while(!quit);
 	
 	}
-	public void handleRequest(int option)  {
+	public static void handleRequest(int option, File stopsFile)  {
 		
 			TST<String> st = new TST<String>();
 		  	Scanner input = new Scanner(System.in);

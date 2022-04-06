@@ -56,8 +56,7 @@ public class UserInterface {
 							}
 						} 
 						else if (choice == 2) {
-							BusStopSearch a = new BusStopSearch(stopsFile);
-							a.takeInput();
+							BusStopSearch.takeInput(stopsFile);
 							input.nextLine();
 						}
 						else if (choice == 3) {
