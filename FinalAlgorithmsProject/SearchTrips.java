@@ -18,7 +18,7 @@ public class SearchTrips <Key extends Comparable <Key>,Value>  {
 
         ArrayList<Trip> sortedTrips = this.arrivalTimeMap.get(arrivalTime);
 
-        Collections.sort(sortedTrips, (trip1, trip2) -> trip1.tripId.compareTo(trip2.tripId));
+        Collections.sort(sortedTrips, (trip1, trip2) -> trip1.tripID.compareTo(trip2.tripID));
 
         return sortedTrips;
 
@@ -42,7 +42,7 @@ public class SearchTrips <Key extends Comparable <Key>,Value>  {
             String result = createTripListString(searchTerm, c);
 
             if (result == null) {
-                System.out.println("There are no items that match your criteria.");
+                System.out.println("There are no trips that match this criteria. ");
                 return ;
             } else {
             	
@@ -86,9 +86,9 @@ public class SearchTrips <Key extends Comparable <Key>,Value>  {
 
         for (int i = 0; i < sortedTrips.size(); i++){
             Trip trip = sortedTrips.get(i);
-            results += sortedTrips.get(i).tripId +
+            results += sortedTrips.get(i).tripID +
                     " departure Time: " +  trip.departureTime +
-                    " Stop Id: "  + trip.stopId +
+                    " Stop Id: "  + trip.stopID +
                     " Stop Sequence: " +  trip.stopSequence +
                     " Stop Headsign: "  + trip.stopHeadSign +
                     " Pick Up type: "  + trip.pickUpTypes +
@@ -105,7 +105,6 @@ public class SearchTrips <Key extends Comparable <Key>,Value>  {
             Scanner fileReader = new Scanner(new FileInputStream(fileToRead));
 
             int line = 0;
-
 
             while (fileReader.hasNextLine()) {
                 if(line == 0){

@@ -178,18 +178,7 @@ public class TST<Value> {
         if (c == '.' || c > x.c) collect(x.right, prefix, i, pattern, queue);
     }
 
-    //Own Code begins here
-    
-    
-    /**
-     * This method creates and populates the TST using the stops.txt file, filling it with the stops,
-     * and their respective stop id's as values to differentiate between the different stops
-     *
-     * @param fileToRead
-     * @param st
-     *
-     */
-  
+
 }
 
 

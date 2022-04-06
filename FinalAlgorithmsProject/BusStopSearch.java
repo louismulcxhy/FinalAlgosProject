@@ -12,7 +12,6 @@ public class BusStopSearch {
 	BusStopSearch(File stopsFile) {
 		
 			this.stopsFile = stopsFile;
-			takeInput();
 		
 	}
 	public void takeInput()  {
@@ -23,7 +22,7 @@ public class BusStopSearch {
 				+ "1. Search by complete bus stop name \n"
 				+ "2. Search by first few characters ");
 		if (!input.hasNextInt()) {
-			System.out.println("Error invalid input,please check each stop number is valid\n");
+			System.out.println("Error invalid input,please enter either '1' or '2'. ");
 			quit = false;
 			input.next();
 		}
@@ -49,7 +48,7 @@ public class BusStopSearch {
 		        	
 		            if(st.get(key) == null)
 		            {
-		                System.out.println("That Bus Stop Does Not Exist \n" +
+		                System.out.println("Error: That Bus Stop Does Not Exist \n" +
 		                        "Please Enter a Valid Bus Stop");
 		                quit = false;
 		                input.next();
@@ -63,7 +62,7 @@ public class BusStopSearch {
 
 		        else if(option==2)
 		        {
-		        	System.out.println("Enter first few characters of bus stop name:  ");
+		        	System.out.println("Enter the first few characters of the bus stop name:  ");
 		        	key = input.next();
 		            String results = "";
 		            for(String s : st.keysWithPrefix(key)){
@@ -72,7 +71,7 @@ public class BusStopSearch {
 		            if(results =="")
 		            {
 		            	System.out.println("No bus stops matching those first " +
-		                        "few characters were found. \n                              Please try again");
+		                        "few characters were found. Please try again");
 		            	quit = false;
 		            }
 		            else
@@ -97,9 +96,9 @@ public class BusStopSearch {
 	                String stopName = data[2];
 	                stopName = formatStopName(stopName);
 
-	                String stopInfo = "// Stop id: " + data[0] + "// Stop Code: " + data[1] +
-	                        "// Stop Desc : " + data[3] + "// Stop Lat: " + data[4] +"// Stop Lon: " +
-	                        data[5] + "// Zone Id: " + data[6];
+	                String stopInfo = "// Stop ID: " + data[0] + "// Stop Code: " + data[1] +
+	                        "// Stop Descripton : " + data[3] + "// Stop Latitiude: " + data[4] +"// Stop Longitude: " +
+	                        data[5] + "// Zone ID: " + data[6];
 
 	                st.put(stopName, stopInfo);
 	            }

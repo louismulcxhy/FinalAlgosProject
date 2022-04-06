@@ -25,7 +25,7 @@ public class UserInterface {
 						+ "2. Search for a bus stop\n" 
 						+ "3. Search for all trips within a given arrival time\n"
 						+"4. quit\n"
-						+ "To select option 1,2 or 3, type the number and hit enter");
+						+ "To select option 1,2,3, or 4 type the number and hit enter");
 				
 				if (!input.hasNextInt()) {
 					System.out.println("Error invalid input,please check each stop number is valid\n");
@@ -57,12 +57,16 @@ public class UserInterface {
 						} 
 						else if (choice == 2) {
 							BusStopSearch a = new BusStopSearch(stopsFile);
+							a.takeInput();
 							input.nextLine();
 						}
 						else if (choice == 3) {
 							System.out.println("Please enter arrival time in the format HH:MM:SS to find the trips that match");
 							String arrivalTime = input.next();	
 							SearchTrips.search(arrivalTime, stopTimesFile);
+						}else if(choice == 4) {
+							System.out.println("Goodbye!");
+							quit=true;
 						}
 						else {
 							System.out.println("Error invalid input,please select a valid option\n");
@@ -71,6 +75,7 @@ public class UserInterface {
 						
 						
 				}
+				
 				
 			
 				}

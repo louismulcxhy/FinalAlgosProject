@@ -6,20 +6,20 @@ public class Trip {
      * object called trip which stores the relevant values in the constructor.
      **/
 
-    String tripId;
+    String tripID;
     String departureTime;
-    String stopId;
+    String stopID;
     String stopSequence;
     String stopHeadSign;
     String pickUpTypes;
     String dropOffType;
     String distanceTravelled;
 
-    public Trip(String tripId, String departureTime, String stopId, String stopSequence, String stopHeadSign, String pickUpTypes, String dropOffType, String distanceTravelled){
+    public Trip(String tripID, String departureTime, String stopID, String stopSequence, String stopHeadSign, String pickUpTypes, String dropOffType, String distanceTravelled){
 
-        this.tripId = tripId;
+        this.tripID = tripID;
         this.departureTime = departureTime.replace(" ","0");
-        this.stopId = stopId;
+        this.stopID = stopID;
         this.stopSequence = stopSequence;
         this.stopHeadSign = stopHeadSign;
         this.pickUpTypes =  pickUpTypes;
