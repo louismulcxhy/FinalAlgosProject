@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -60,7 +59,11 @@ public class UserInterface {
 							BusStopSearch a = new BusStopSearch(stopsFile);
 							input.nextLine();
 						}
-						
+						else if (choice == 3) {
+							System.out.println("Please enter arrival time in the format HH:MM:SS to find the trips that match");
+							String arrivalTime = input.next();	
+							SearchTrips.search(arrivalTime, stopTimesFile);
+						}
 						else {
 							System.out.println("Error invalid input,please select a valid option\n");
 							input.next();
@@ -70,7 +73,7 @@ public class UserInterface {
 				}
 				
 			
-			}
+				}
 		 }catch(IOException e)
         {
             System.out.println("File not found");

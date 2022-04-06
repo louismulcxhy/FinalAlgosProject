@@ -7,8 +7,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class BusStopSearch {
-	// opens dialog asking which option, manages request, handles file
-	// then finally calls TST to search
+
 	File stopsFile;
 	BusStopSearch(File stopsFile) {
 		
@@ -26,6 +25,7 @@ public class BusStopSearch {
 		if (!input.hasNextInt()) {
 			System.out.println("Error invalid input,please check each stop number is valid\n");
 			quit = false;
+			input.next();
 		}
 		int choice = input.nextInt();
 		handleRequest(choice);
@@ -39,7 +39,6 @@ public class BusStopSearch {
 		  	String key;
 	        CreateTST(stopsFile, st);
 
-	        //User requested to search by bus stops full name
 	        boolean quit;
 	        do {
 	        	quit = true;
@@ -61,8 +60,7 @@ public class BusStopSearch {
 		            }
 	
 		        }
-	
-		        //User requested to search by first few characters
+
 		        else if(option==2)
 		        {
 		        	System.out.println("Enter first few characters of bus stop name:  ");
@@ -113,49 +111,41 @@ public class BusStopSearch {
 	        }
 	    }
 
-	    /**
-	     * This method takes a string representation of the stop, and then returns the stop name
-	     * with the keyword flagstops moved to the end of the stop
-	     *
-	     *
-	     * @param stop
-	     * @return an String representation of the stop with they words moved appropriately
-	     */
 	    public static String formatStopName(String stop)
 	    {
 
-	        // Checking if the stop name contains keyword flagstops that need to be moved
-	        char[] checkingCh = new char[stop.length()];
+	        char[] stopCharArray = new char[stop.length()];
 	        for (int i = 0; i < stop.length(); i++) {
-	            checkingCh[i] = stop.charAt(i);
+	            stopCharArray[i] = stop.charAt(i);
 	        }
 
-	        char checking = checkingCh[2];
-	        if (Character.isWhitespace(checking))
+	        char charToBeChecked = stopCharArray[2];
+	        if (Character.isWhitespace(charToBeChecked))
 	        {
-	            String newStop ="";
+	            String formattedStop ="";
+	            int stopCharLength = stop.length() + 3;
+	            
+	            char[] newStopCharArray = new char[stopCharLength];
 
-	            char[] ch = new char[stop.length()+3];
-
-	            int chLength = stop.length() + 3;
+	            
 
 	            for (int i = 0; i < stop.length(); i++) {
-	                ch[i] = stop.charAt(i);
+	                newStopCharArray[i] = stop.charAt(i);
 	            }
 
-	            char firstLetter = ch[0];
-	            char secondLetter = ch[1];
+	            char firstLetter = newStopCharArray[0];
+	            char secondLetter = newStopCharArray[1];
 	            char space = ' ';
 
-	            ch[chLength-3] = space;
-	            ch[chLength-2] = firstLetter;
-	            ch[chLength-1] = secondLetter;
+	            newStopCharArray[stopCharLength-3] = space;
+	            newStopCharArray[stopCharLength-2] = firstLetter;
+	            newStopCharArray[stopCharLength-1] = secondLetter;
 
-	            String str = String.valueOf(ch);
+	            String str = String.valueOf(newStopCharArray);
 
-	            newStop = str.substring(3);
+	            formattedStop = str.substring(3);
 
-	            return newStop;
+	            return formattedStop;
 
 	        }
 	        else
