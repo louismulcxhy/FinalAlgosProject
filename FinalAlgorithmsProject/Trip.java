@@ -1,10 +1,7 @@
 
 public class Trip {
 
-    /**
-     * This, class allows us to easily split and sort each line item in the array, by breaking each item into an index. We create an
-     * object called trip which stores the relevant values in the constructor.
-     **/
+    //creates trip object to be able to handle file easier - breaks each line into trip object assigning details to individual variables
 
     String tripID;
     String departureTime;
@@ -14,8 +11,9 @@ public class Trip {
     String pickUpTypes;
     String dropOffType;
     String distanceTravelled;
-
-    public Trip(String tripID, String departureTime, String stopID, String stopSequence, String stopHeadSign, String pickUpTypes, String dropOffType, String distanceTravelled){
+    
+    public Trip(String tripID, String departureTime, String stopID, String stopSequence, 
+    		String stopHeadSign, String pickUpTypes, String dropOffType, String distanceTravelled){
 
         this.tripID = tripID;
         this.departureTime = departureTime.replace(" ","0");
