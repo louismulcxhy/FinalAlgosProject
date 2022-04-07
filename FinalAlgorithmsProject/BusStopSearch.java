@@ -8,11 +8,13 @@ public class BusStopSearch {
 
 
     //takes in user input as to which option to take and handles the rest
-    public static void takeInput(File stopsFile) {
+
+	@SuppressWarnings("resource")
+	public static void takeInput(File stopsFile) {
         boolean quit = true;
         Scanner input = new Scanner(System.in);
         do { //loop taking user choice
-            System.out.println("Would you like to: \n " +
+            System.out.println("Would you like to: \n" +
                 "1. Search by complete bus stop name \n" +
                 "2. Search by first few characters ");
             if (!input.hasNextInt()) {
@@ -24,12 +26,13 @@ public class BusStopSearch {
             //calls function to handle this choice and take further input
             handleRequest(choice, stopsFile);
         } while (!quit);
-
+        
     }
-    public static void handleRequest(int option, File stopsFile) {
+    @SuppressWarnings("resource")
+	public static void handleRequest(int option, File stopsFile) {
         // creates TST object to eventually search for input
-        TST < String > st = new TST < String > ();
-        Scanner input = new Scanner(System.in);
+    	TST < String > st = new TST < String > ();
+		Scanner input = new Scanner(System.in);
         String key;
 
         CreateTST(stopsFile, st); // puts stop info into TST
@@ -73,7 +76,7 @@ public class BusStopSearch {
 
             }
         } while (!quit);
-
+        
 
     }
     //creates tst containing file data

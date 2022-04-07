@@ -46,69 +46,84 @@ public class ShortestPath {
     }
     // sets up edges of graph/adjacency list using info from stop times file and transfer file
     public void setupEdges() throws FileNotFoundException {
-    	//reads in transfers file
-        Scanner transferScanner = new Scanner(transfersFile);
-        transferScanner.nextLine();
-        // new graph object with correct number of edges
-        systemGraph = new Graph(numberOfEdges);
-
-        String transfer = "";
-        String[] transferValues;
-        //reads in transfer data - to from type and cost
-        while (transferScanner.hasNextLine()) {
-            transfer = transferScanner.nextLine();
-            transferValues = transfer.split(",");
-
-            int from = Integer.parseInt(transferValues[0]);
-            int to = Integer.parseInt(transferValues[1]);
-            int type = Integer.parseInt(transferValues[2]);
-            int cost;
-            if (type == 0) {
-                cost = 2;
-            } else {
-                cost = Integer.parseInt(transferValues[3]) / 100;
-            }
-            //adds info to graph
-            systemGraph.addEdge(from, to, cost);
-        }
-
-        //reads in stop times file
-        Scanner stopTimeScanner = new Scanner(stopTimesFile);
-        stopTimeScanner.nextLine();
-
-        String trip = "";
-        String[] tripValues;
-        //inititalises necessary variables
-        int from = 1;
-        int to = 0;
-        int stopSequenceValue = 0;
-        boolean skip = false;
-        //loop reading in values
-        while (stopTimeScanner.hasNextLine()) {
-            trip = stopTimeScanner.nextLine();
-            tripValues = trip.split(",");
-            stopSequenceValue = Integer.parseInt(tripValues[4]);
-
-            skip = false;
+    	Scanner fileScanner = new Scanner(System.in);
+    	//add edges relating to transfers between routes
+    	addTransferEdges(fileScanner);
+    	// add edges for traditional bus routes
+    	addTripEdges(fileScanner);
+    }
+    public void addTripEdges(Scanner fileScanner) {
+    	try {
+    		  //reads in stop times file
             
-            if (stopSequenceValue != 1) { //checks if first stop in trip sequence
-                to = Integer.parseInt(tripValues[3]); //otherwise sets to value
-                for (Edge thisEdge: systemGraph.getNode(from)) {
-                    if (thisEdge.to == to) {
-                        skip = true;
-                        break;
+    		fileScanner = new Scanner(stopTimesFile);
+    		fileScanner.nextLine();
+
+            String trip = "";
+            String[] tripValues;
+            //inititalises necessary variables
+            int from = 1;
+            int to = 0;
+            int stopSequenceValue = 0;
+            boolean skip = false;
+            //loop reading in values
+            while (fileScanner.hasNextLine()) {
+                trip =fileScanner.nextLine();
+                tripValues = trip.split(",");
+                stopSequenceValue = Integer.parseInt(tripValues[4]);
+
+                skip = false;
+                
+                if (stopSequenceValue != 1) { //checks if first stop in trip sequence
+                    to = Integer.parseInt(tripValues[3]); //otherwise sets to value
+                    for (Edge thisEdge: systemGraph.getNode(from)) {
+                        if (thisEdge.to == to) {
+                            skip = true;
+                            break;
+                        }
+                    }
+                    if (!skip) {
+                        systemGraph.addEdge(from, to, 1); // adds relevant edges to graph, skips non applicable edges
                     }
                 }
-                if (!skip) {
-                    systemGraph.addEdge(from, to, 1); // adds relevant edges to graph, skips non applicable edges
-                }
+                //sets from for next loop
+                from = Integer.parseInt(tripValues[3]);
             }
-            //sets from for next loop
-            from = Integer.parseInt(tripValues[3]);
-        }
-        stopTimeScanner.close();
+           
+    	} catch (FileNotFoundException e){
+    		System.out.println("File not found");
+    	}
+    }
+    public void addTransferEdges(Scanner fileScanner) {
+    	try {
+    		//reads in transfers file
+            fileScanner = new Scanner(transfersFile);
+            fileScanner.nextLine();
+            // new graph object with correct number of edges
+            systemGraph = new Graph(numberOfEdges);
 
-        transferScanner.close();
+            String transfer = "";
+            String[] transferValues;
+            //reads in transfer data - to from type and cost
+            while (fileScanner.hasNextLine()) {
+                transfer = fileScanner.nextLine();
+                transferValues = transfer.split(",");
+
+                int from = Integer.parseInt(transferValues[0]);
+                int to = Integer.parseInt(transferValues[1]);
+                int type = Integer.parseInt(transferValues[2]);
+                int cost;
+                if (type == 0) {
+                    cost = 2;
+                } else {
+                    cost = Integer.parseInt(transferValues[3]) / 100;
+                }
+                //adds info to graph
+                systemGraph.addEdge(from, to, cost);
+            }
+    	}catch(FileNotFoundException e) {
+    		System.out.println("File not found");
+    	}
     }
     //runs dijkstra search
     public Edge[] runDijkstra(int startNode) {
@@ -181,7 +196,7 @@ public class ShortestPath {
         //reverses sequence
         Collections.reverse(stopSequence);
         //adds distance to start of sequence to be printed as part of output to user
-        stopSequence.add(0, dists[destination] + "");
+        stopSequence.add(0, "Cost: " + dists[destination] + "");
         //turns array into string to be returned
         String returnString = "";
         for (String string: stopSequence) {
