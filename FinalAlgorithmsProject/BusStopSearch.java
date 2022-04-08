@@ -35,7 +35,7 @@ public class BusStopSearch {
 		Scanner input = new Scanner(System.in);
         String key;
 
-        CreateTST(stopsFile, st); // puts stop info into TST
+        createTST(stopsFile, st); // puts stop info into TST
 
         boolean quit;
         do { //loop taking stop name input from user and outputting results
@@ -80,7 +80,7 @@ public class BusStopSearch {
 
     }
     //creates tst containing file data
-    public static void CreateTST(File fileToRead, TST < String > st) {
+    public static void createTST(File fileToRead, TST < String > st) {
         try {
             Scanner input = new Scanner(new FileInputStream(fileToRead));
 
