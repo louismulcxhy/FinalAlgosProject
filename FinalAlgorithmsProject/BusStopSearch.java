@@ -47,7 +47,7 @@ public class BusStopSearch {
             if (st.get(key) == null) //checks for null
             {
                 System.out.println("Error: That Bus Stop Does Not Exist \n");
-                input.next();
+        
             } else {
                 System.out.println(key + st.get(key)); //prints stop and stop details
             }
