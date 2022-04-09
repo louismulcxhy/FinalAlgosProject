@@ -95,17 +95,19 @@ public class SearchTrips < Key extends Comparable < Key > , Value > {
         ArrayList < Trip > sortedTrips = c.getSortedTrips(arrivalTime);
         String results = "";
         //formats string and info correctly with details
-        for (int i = 0; i < sortedTrips.size(); i++) {
-            Trip trip = sortedTrips.get(i);
-            results += sortedTrips.get(i).tripID +
-                " departure Time: " + trip.departureTime +
-                " Stop Id: " + trip.stopID +
-                " Stop Sequence: " + trip.stopSequence +
-                " Stop Headsign: " + trip.stopHeadSign +
-                " Pick Up type: " + trip.pickUpTypes +
-                " Drop Off Type: " + trip.dropOffType +
-                " Distance Travelled: " + trip.distanceTravelled + "\n";
-
+        if (sortedTrips.size() != 0) {
+	        for (int i = 0; i < sortedTrips.size(); i++) {
+	            Trip trip = sortedTrips.get(i);
+	            results += sortedTrips.get(i).tripID +
+	                " departure Time: " + trip.departureTime +
+	                " Stop Id: " + trip.stopID +
+	                " Stop Sequence: " + trip.stopSequence +
+	                " Stop Headsign: " + trip.stopHeadSign +
+	                " Pick Up type: " + trip.pickUpTypes +
+	                " Drop Off Type: " + trip.dropOffType +
+	                " Distance Travelled: " + trip.distanceTravelled + "\n";
+	
+	        }
         }
         return results;
 
