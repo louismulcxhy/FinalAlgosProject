@@ -18,7 +18,7 @@ public class BusStopSearch {
                 "1. Search by complete bus stop name \n" +
                 "2. Search by first few characters ");
             if (!input.hasNextInt()) {
-                System.out.println("Error invalid input,please enter either '1' or '2'. ");
+                System.out.println("Error: invalid input - please enter either '1' or '2'. ");
                 quit = false;
                 input.next();
             }
@@ -37,45 +37,43 @@ public class BusStopSearch {
 
         createTST(stopsFile, st); // puts stop info into TST
 
-        boolean quit;
-        do { //loop taking stop name input from user and outputting results
-            quit = true;
-            if (option == 1) // for full stop name
+        
+        if (option == 1) // for full stop name
+        {
+            System.out.println("Enter full bus stop name: ");
+            key = input.nextLine();
+            key = key.toUpperCase();
+
+            if (st.get(key) == null) //checks for null
             {
-                System.out.println("Enter full bus stop name: ");
-                key = input.nextLine();
-                key = key.toUpperCase();
-
-                if (st.get(key) == null) //checks for null
-                {
-                    System.out.println("Error: That Bus Stop Does Not Exist \n");
-                    input.next();
-                } else {
-                    System.out.println(key + st.get(key)); //prints stop and stop details
-                }
-
-            } else if (option == 2) // for partial input - first few letters
-            {
-                //takes input
-                System.out.println("Enter the first few characters of the bus stop name:  ");
-                key = input.next();
-                key = key.toUpperCase(); // makes all uppercase to make input case irrelevant
-                String results = "";
-                for (String s: st.keysWithPrefix(key)) { // adds stops to string 
-                    results += s + st.get(s) + "\n";
-                }
-                if (results == "") //checks if empty
-                {
-                    System.out.println("No bus stops matching those first " +
-                        "few characters were found. Please try again");
-                    quit = false;
-                } else //prints results
-                {
-                    System.out.println(results);
-                }
-
+                System.out.println("Error: That Bus Stop Does Not Exist \n");
+                input.next();
+            } else {
+                System.out.println(key + st.get(key)); //prints stop and stop details
             }
-        } while (!quit);
+
+        } else if (option == 2) // for partial input - first few letters
+        {
+            //takes input
+            System.out.println("Enter the first few characters of the bus stop name:  ");
+            key = input.next();
+            key = key.toUpperCase(); // makes all uppercase to make input case irrelevant
+            String results = "";
+            for (String s: st.keysWithPrefix(key)) { // adds stops to string 
+                results += s + st.get(s) + "\n";
+            }
+            if (results == "") //checks if empty
+            {
+                System.out.println("Error: No bus stops matching those first " +
+                    "few characters were found. ");
+                
+            } else //prints results
+            {
+                System.out.println(results);
+            }
+
+        }
+        
         
 
     }
@@ -100,7 +98,7 @@ public class BusStopSearch {
 
             input.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Error: File not found");
         }
     }
     //formats stop name putting letters before stop name to the end

@@ -44,7 +44,7 @@ public class SearchTrips < Key extends Comparable < Key > , Value > {
             String result = createTripListString(arrivalTime, c);
             //checks for null 
             if (result == null) {
-                System.out.println("There are no trips that match this criteria. ");
+                System.out.println("Error: There are no trips that match this criteria. ");
                 return;
             } else {
     		//prints output to user
@@ -52,7 +52,7 @@ public class SearchTrips < Key extends Comparable < Key > , Value > {
                 return;
             }
         } catch (Exception e) {
-            System.out.println("No trips were found that match this criteria.");
+            System.out.println("Error: No trips were found that match this criteria.");
             return;
 
         }
@@ -148,7 +148,7 @@ public class SearchTrips < Key extends Comparable < Key > , Value > {
 
             fileReader.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Error: File not found");
         }
     }
 }

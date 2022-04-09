@@ -91,7 +91,7 @@ public class ShortestPath {
             }
            
     	} catch (FileNotFoundException e){
-    		System.out.println("File not found");
+    		System.out.println("Error: File not found");
     	}
     }
     public void addTransferEdges(Scanner fileScanner) {
@@ -171,10 +171,10 @@ public class ShortestPath {
 
     	//checks stops exist
         if (getStopById(start) == null) {
-            return "Departure stop doen't exist";
+            return "Error: Departure stop doen't exist";
         }
         if (getStopById(destination) == null) {
-            return "Destination stop doesn't exist";
+            return "Error: Destination stop doesn't exist";
         }
         //runs dijkstra for start node as origin
         Edge[] edgeTo = runDijkstra(start);
@@ -189,7 +189,7 @@ public class ShortestPath {
             try {
                 currentStop = edgeTo[currentStop].from;
             } catch (NullPointerException e) {
-                return "Path does not exist!";
+                return "Error: Path does not exist!";
             }
             stopSequence.add(getStopById(currentStop));
         }
@@ -211,6 +211,6 @@ public class ShortestPath {
                 return s.getName();
             }
         }
-        return "Specified stop doesn't exist!";
+        return "Error: Specified stop doesn't exist!";
     }
 }

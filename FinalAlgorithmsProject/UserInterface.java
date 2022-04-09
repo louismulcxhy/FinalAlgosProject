@@ -23,12 +23,12 @@ public class UserInterface {
                 System.out.println("What would you like to do?\n" +
                     "1. Find the shortest path between two stops\n" +
                     "2. Search for a bus stop\n" +
-                    "3. Search for all trips within a given arrival time\n" +
+                    "3. Search for all trips with a given arrival time\n" +
                     "4. Quit\n" +
                     "To select option 1,2,3, or 4 type the number and hit enter");
 
                 if (!input.hasNextInt()) { //checks for valid input
-                    System.out.println("Error invalid input.");
+                    System.out.println("Error: invalid input.");
                     input.next();
                 } else {
                     int choice = input.nextInt();
@@ -38,13 +38,13 @@ public class UserInterface {
                         System.out.println("Please enter 2 bus stop numbers to find the shortest path between them\n" +
                             "Enter first stop number: ");
                         if (!input.hasNextInt()) {
-                            System.out.println("Error invalid input,please check each stop number is valid\n");
+                            System.out.println("Error: invalid input - please check each stop number is valid. \n");
                             input.next();
                         } else {
                             int stop1 = input.nextInt();
                             System.out.println("Enter second stop number: ");
                             if (!input.hasNextInt()) {
-                                System.out.println("Error invalid input,please check each stop number is valid\n");
+                                System.out.println("Error: invalid input - please check each stop number is valid. \n");
                                 input.next();
                             } else {
                                 int stop2 = input.nextInt();
@@ -80,7 +80,7 @@ public class UserInterface {
                     }
                     //case 5 - input error
                     else {
-                        System.out.println("Error invalid input,please select a valid option\n");
+                        System.out.println("Error: invalid input - please select a valid option.");
                         input.next();
                     }
 
